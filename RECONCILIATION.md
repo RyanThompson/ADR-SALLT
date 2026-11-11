@@ -1,7 +1,9 @@
 # SDK reconciliation — gap map
 
 **Status:** Landed (Phase 1). This is the ordered backlog before trusting implementation.  
-**Sources:** ADR-SALLT canon · `streams/sdk` @ local `_packages/streams-sdk` · GV2 domain plumbing as architecture reference only · to-dos as dogfood bench.
+**Sources:** ADR-SALLT canon · `streams/sdk` @ local `_packages/streams-sdk` (`563babf`, path-pinned from `streams-todo`) · GV2 domain plumbing as architecture reference only · dogfood app `streams-todo`.
+
+**Dogfood note:** `streams/sdk` `composer.json` allows `nikic/php-parser` `^4.14 || ^5.0` so Laravel 12 apps can install the path package.
 
 Canon “good” is defined by ADRs + checklists. Emit “can” is defined by `streams:make` + KindRegistry + tree/validate. Gaps below are the difference.
 
