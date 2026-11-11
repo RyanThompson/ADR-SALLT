@@ -1,0 +1,30 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use App\Domains\{{ domain }}\Events\{{ event }};
+
+/** ADR 0010 — one DTO in, one fact out. */
+final class {{ class }}
+{
+    public function __construct(private {{ data }} $data) {}
+
+    public function __invoke(): mixed
+    {
+        ${{ entityVar }} = entries('{{ stream }}')->findOrFail($this->data->{{ entityVar }}Id);
+
+        Gate::forUser($this->data->actor)->authorize('TODO-ability', ${{ entityVar }});
+
+        DB::transaction(function () use (${{ entityVar }}): void {
+            // TODO: write only {{ domain }}-owned state.
+        });
+
+        event(new {{ event }}(${{ entityVar }}, $this->data));
+
+        return ${{ entityVar }};
+    }
+}

@@ -1,0 +1,29 @@
+id: ADR-0019
+title: Pages
+extends: _defaults.yml
+applies_to:
+- 'app/Domains/**/Panel/Pages/**'
+rules:
+- name: compose-via-getcomponents
+  severity: error
+  check: 'Pages extend the Streams UI panel page and compose through `getComponents()`.'
+- name: no-logic-in-pages
+  severity: error
+  check: 'Pages hold no mutation, validation or query logic beyond loading their own entry.'
+- name: single-data-bucket
+  severity: error
+  check: 'All Livewire state lives in the shared `$data` bucket. No parallel public state arrays.'
+- name: tenant-from-resolver
+  severity: error
+  check: 'Tenant comes from `UI::getTenant()`. Never re-resolve it from `auth()` or by re-fetching.'
+- name: routed-by-resource
+  severity: error
+  check: 'Pages are routed only through their resource''s `getPages()`.'
+- name: tab-state-in-data
+  severity: warning
+  check: 'Resource tabs set `$data[''active_navigation'']` in `boot()`; items use `isActiveWhen()`.'
+- name: no-h1-fluff
+  severity: warning
+  check: 'The page H1 carries no description unless it is entity content or the message itself.'
+manual_review:
+- 'Does the page read like a table of contents?'

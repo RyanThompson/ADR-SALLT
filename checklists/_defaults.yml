@@ -1,0 +1,13 @@
+# Shared by every checklist. Per-ADR files hold only id, title, applies_to, rules, manual_review.
+version: 1
+enforcement:
+  mode: changed_files            # check only changed files matching applies_to
+  legacy: grandfather_until_touched
+  exception_comment: 'ADR-{id} exception:'
+  blocking: [error]              # warnings report, never block
+  report: [file, line, symbol, rule, severity, adr]
+fixtures:
+  failing: one per automated rule, showing the violation
+  passing: one per automated rule, showing the canon shape
+agents: Satisfy every error rule before returning output. Treat warnings as strong preferences unless the user overrides.
+generators: Generated output must pass every error rule with no edits except filling TODOs.

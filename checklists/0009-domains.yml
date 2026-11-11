@@ -1,0 +1,23 @@
+id: ADR-0009
+title: Domains
+extends: _defaults.yml
+applies_to:
+- 'app/Domains/**'
+rules:
+- name: code-lives-in-domains
+  severity: error
+  check: 'Business-capability code lives in `app/Domains/{Domain}`. Only framework glue and truly domain-neutral infrastructure live outside.'
+- name: business-domain-names
+  severity: error
+  check: 'Domains are plural business nouns (`Todos`, `Projects`, `Labels`). Never technical buckets (`Data`, `Services`, `Helpers`, `Managers`).'
+- name: domain-owns-its-surfaces
+  severity: error
+  check: 'A domain owns its streams, actions, DTOs, events, listeners, policies, API and panel UI.'
+- name: derived-domains-read-only
+  severity: error
+  check: 'Derived domains (insights, reports, dashboards) read facts and never write them.'
+- name: prefer-coherent-domains
+  severity: warning
+  check: 'Prefer one coherent domain over several fragments with unclear ownership.'
+manual_review:
+- 'Can you name the owning domain of every touched file in one word?'

@@ -1,0 +1,31 @@
+id: ADR-0012
+title: Events and Listeners
+extends: _defaults.yml
+applies_to:
+- 'app/Domains/**/Events/**'
+- 'app/Domains/**/Listeners/**'
+- 'app/Providers/EventServiceProvider.php'
+rules:
+- name: past-tense-names
+  severity: error
+  check: 'Names are Subject+PastVerb (`TodoCreated`). No imperatives, no `Was`/`Were`.'
+- name: readonly-in-domain
+  severity: error
+  check: 'Events are `final readonly` with typed properties and live in the emitting domain''s `Events/`.'
+- name: emit-after-commit
+  severity: error
+  check: 'Emitted only after the write commits.'
+- name: purposeful-payload
+  severity: error
+  check: 'Payloads carry the entity or ids, plus the DTO only if listeners need it. No raw request data or secrets.'
+- name: listener-writes-via-actions
+  severity: error
+  check: 'A listener writes only through the owning domain''s public action or contract.'
+- name: listener-context-from-event
+  severity: error
+  check: 'A listener takes context from the event, never from `auth()`, `request()` or `now()`.'
+- name: registered-and-idempotent
+  severity: error
+  check: 'Listeners are registered explicitly and idempotent when queued.'
+manual_review:
+- 'Is the event chain readable from the owning domain alone?'

@@ -1,0 +1,24 @@
+id: ADR-0005
+title: Labels and Icons
+extends: _defaults.yml
+applies_to:
+- 'app/Domains/**/Panel/**'
+rules:
+- name: text-xor-icon
+  severity: error
+  check: 'A visible action shows a translated label or an icon (`->label(false)`), not both.'
+- name: no-redundant-icons
+  severity: error
+  check: 'No icon that restates its label (View + eye, Edit + pencil, Done + check).'
+- name: verbs-are-text
+  severity: error
+  check: 'Named product verbs are text-only.'
+- name: icon-only-accessible
+  severity: error
+  check: 'Icon-only actions use unambiguous glyphs and keep an accessible name.'
+- name: icon-adds-meaning
+  severity: error
+  check: 'Label + icon is allowed only for added meaning (e.g. opens in a new context).'
+- name: when-unsure-omit
+  severity: warning
+  check: 'When unsure, omit the icon.'

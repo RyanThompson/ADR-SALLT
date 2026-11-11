@@ -1,0 +1,31 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Streams\Api\ApiResource;
+use Streams\Api\Support\Facades\API;
+use Streams\Core\Criteria\Criteria;
+use App\Domains\{{ domain }}\Api\Endpoints\List{{ domain }};
+
+/** ADR 0006 — tenant scope lives here; endpoints apply it. */
+final class {{ domain }}ApiResource extends ApiResource
+{
+    protected static ?string $slug = '{{ domainKey }}';
+
+    protected static ?string $stream = '{{ stream }}';
+
+    public static function scopedQuery(): Criteria
+    {
+        return entries(static::$stream)->where('organization_id', '=', API::getTenant()->id);
+    }
+
+    public static function getEndpoints(): array
+    {
+        return [
+            'index' => List{{ domain }}::route('/', 'get'),
+        ];
+    }
+}
+// Register in ApiServiceProvider resources([...])

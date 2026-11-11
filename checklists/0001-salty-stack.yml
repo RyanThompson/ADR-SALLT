@@ -1,0 +1,53 @@
+id: ADR-0001
+title: Salty Stack (SALLT)
+extends: _defaults.yml
+applies_to:
+- 'app/**'
+- 'streams/**'
+- 'resources/**'
+rules:
+- name: first-layer-that-owns
+  severity: error
+  check: 'Solve each concern at the first layer that can own it: Streams → Alpine.js → Laravel → Livewire → Tailwind.'
+- name: streams-is-the-platform
+  severity: error
+  check: 'Streams is the platform (core, ui, api, sdk). If Streams does it, use it. If Streams should do it, add it upstream.'
+- name: alpine-browser-only
+  severity: error
+  check: 'Alpine owns behavior only the browser needs, in native HTML. It never round-trips for that behavior.'
+- name: laravel-domain-core
+  severity: error
+  check: 'Laravel is the runtime and the domain core. Domain logic knows nothing about the UI that calls it.'
+- name: livewire-server-state
+  severity: error
+  check: 'Livewire holds interactive state the server must know, hosted by Streams UI, in one `$data` bucket.'
+- name: tailwind-last
+  severity: error
+  check: 'Tailwind styles what the Streams UI theme does not already give. Theme and variants before utilities.'
+- name: discover-stack-first
+  severity: error
+  check: 'Discover stack law in ADR 0001 first, then the ADRs that govern the touched paths (`adr/0002+`), then their checklists.'
+- name: data-is-a-stream
+  severity: error
+  check: 'New persisted concepts are stream definitions accessed via entries(); a new Eloquent model carries an ADR-0001 exception.'
+- name: behavior-is-domain-action
+  severity: error
+  check: 'UI builders, Livewire, Blade, Alpine and API endpoints contain no business rules or persistence; they dispatch domain actions.'
+- name: ui-composed-not-authored
+  severity: error
+  check: 'UI is composed from Streams builders; custom Blade never duplicates a builder; package gaps go upstream (0002).'
+- name: single-state-owner
+  severity: error
+  check: 'No state is held in both Alpine x-data and Livewire $data.'
+- name: no-other-client-framework
+  severity: error
+  check: 'No jQuery, Vue or React is introduced. Third-party JS is wrapped once as an Alpine component.'
+- name: theme-before-utilities
+  severity: error
+  check: 'Theme tokens and component variants before utility classes; utilities before custom CSS.'
+- name: one-tenant-resolver
+  severity: error
+  check: 'One tenant resolver per surface: `UI::getTenant()`, `API::getTenant()`, or the async payload.'
+manual_review:
+- 'Was ADR 0001 used as the lens before choosing a lower-layer approach?'
+- 'Should any gap filled here have been fixed upstream in Streams?'

@@ -1,0 +1,14 @@
+<?php
+
+// Proves ADR 0010–0012 for {{ class }}.
+it('writes, then emits {{ event }}', function () {
+    Event::fake([{{ event }}::class]);
+
+    // dispatch_sync(new {{ class }}(new {{ data }}(...)));
+
+    Event::assertDispatched({{ event }}::class);
+})->todo();
+
+it('refuses an unauthorized actor', function () {
+    // expect(fn () => dispatch_sync(...))->toThrow(AuthorizationException::class);
+})->todo();

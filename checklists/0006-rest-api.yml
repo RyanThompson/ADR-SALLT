@@ -1,0 +1,35 @@
+id: ADR-0006
+title: REST API
+extends: _defaults.yml
+applies_to:
+- 'app/Domains/**/Api/**'
+- 'app/Providers/ApiServiceProvider.php'
+- 'app/Support/Api/**'
+rules:
+- name: api-in-domains
+  severity: error
+  check: 'API code lives in `app/Domains/{Domain}/Api/`, not addons or `routes/api.php`.'
+- name: resources-registered
+  severity: error
+  check: 'Every `*ApiResource` is registered in the API service provider. No scanning.'
+- name: scope-on-resource
+  severity: error
+  check: 'Each resource defines `scopedQuery()` aligned with its panel resource; endpoints apply it, never re-filter tenant inline.'
+- name: package-endpoints-explicit-verbs
+  severity: error
+  check: 'Endpoints use Streams API entry endpoints and register with `::route($path, $methods)` and explicit verbs.'
+- name: nested-targets-one-stream
+  severity: error
+  check: 'A nested path targets one stream (`/todos/{id}/labels` → `todo_labels`).'
+- name: writes-via-actions
+  severity: error
+  check: 'Writes with business rules dispatch domain actions.'
+- name: stateless-header-tenant
+  severity: error
+  check: 'Auth is stateless (Sanctum bearer). Tenant comes only from the `X-Organization-ID` header via `API::getTenant()`, never from body, query or session.'
+- name: explicit-where
+  severity: error
+  check: 'Queries use explicit three-argument `where($field, ''='', $value)`.'
+- name: scope-tests
+  severity: warning
+  check: 'Each resource has feature tests for tenant scoping and nested routes.'

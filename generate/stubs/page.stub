@@ -1,0 +1,34 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Streams\Ui\Builders\Headings\Heading;
+use Streams\Ui\Livewire\Pages\PanelPage;
+use App\Domains\{{ domain }}\Panel\Resources\{{ domain }}PanelResource;
+
+/** ADR 0019 — a composition root. */
+final class {{ class }} extends PanelPage
+{
+    protected static string $resource = {{ domain }}PanelResource::class;
+
+    public $entry = null;
+
+    public $record = null;
+
+    public function boot(): void
+    {
+        $this->record = entries('{{ stream }}')->findOrFail($this->entry);
+    }
+
+    public function getComponents(): array
+    {
+        return [
+            self::$resource::breadcrumbs(),
+            Heading::make($this->record->name)->priority('h1'),
+            // TODO: ...Card::for($this),
+        ];
+    }
+}
+// Register in {{ domain }}PanelResource::getPages(): '{{ name }}' => {{ class }}::route('/{entry}/{{ name }}')

@@ -1,0 +1,25 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Streams\Ui\Support\Facades\UI;
+use Streams\Ui\Builders\Tables\Table;
+use Streams\Ui\Builders\Tables\Columns\TextColumn;
+
+/** ADR 0004 — owns query, columns, actions and empty state. Title lives here, not on a Card. */
+final class {{ class }} extends Table
+{
+    protected function setUp(): void
+    {
+        $this->heading(__('domains/{{ domainKey }}.{{ name }}.heading'))
+            ->query(entries('{{ stream }}')->where('organization_id', '=', UI::getTenant()->id))
+            ->columns([
+                TextColumn::make('name')
+                    ->label(__('domains/{{ domainKey }}.{{ name }}.columns.name'))
+                    ->sortable(),
+            ])
+            ->emptyStateHeading(__('domains/{{ domainKey }}.{{ name }}.empty.heading'));
+    }
+}

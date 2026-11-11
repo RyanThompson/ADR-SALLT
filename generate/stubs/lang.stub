@@ -1,0 +1,8 @@
+<?php
+
+// ADR 0015 — lang/{locale}/domains/{{ domainKey }}.php. Nested; mirrored in every locale.
+return [
+    'fields' => [],
+    'actions' => [],
+    'notifications' => [],
+];

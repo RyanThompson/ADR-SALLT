@@ -1,0 +1,25 @@
+id: ADR-0011
+title: Data Transfer Objects
+extends: _defaults.yml
+applies_to:
+- 'app/Domains/**/Actions/*Data.php'
+- 'app/Domains/**/*Data.php'
+rules:
+- name: final-readonly-typed
+  severity: error
+  check: 'DTOs are `final readonly class` with typed, constructor-promoted properties.'
+- name: named-for-consumer
+  severity: error
+  check: 'Names end in `Data` and match their consumer (`UpdateTodoTitle` → `UpdateTodoTitleData`).'
+- name: context-in-dto
+  severity: error
+  check: 'Context travels in the DTO: actor, tenant, time and source.'
+- name: explicit-factories
+  severity: error
+  check: 'Named factories (`fromForm`, `fromValidated`, `fromApi`) map trusted input with no hidden defaults and no runtime globals.'
+- name: no-fuzzy-required
+  severity: error
+  check: 'Required fields are required. Nullable only when optional by design.'
+- name: data-only
+  severity: error
+  check: 'DTOs hold data only — no persistence, dispatch, authorization or branching.'

@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use App\Domains\{{ domain }}\Actions\{{ data }};
+
+/** ADR 0012 — an immutable, past-tense fact. */
+final readonly class {{ class }}
+{
+    public function __construct(
+        public object ${{ entityVar }},
+        public {{ data }} $data,
+    ) {}
+}

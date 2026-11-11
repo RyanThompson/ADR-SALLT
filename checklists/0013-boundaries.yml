@@ -1,0 +1,26 @@
+id: ADR-0013
+title: Boundaries
+extends: _defaults.yml
+applies_to:
+- 'app/Domains/**'
+rules:
+- name: owner-named-first
+  severity: error
+  check: 'Name the owner before writing mutation code.'
+- name: no-cross-domain-writes
+  severity: error
+  check: 'Never write another domain''s streams, entries, models or repositories.'
+- name: sync-via-public-capability
+  severity: error
+  check: 'Synchronous cross-domain work calls the owner''s public action or `Contracts/` interface.'
+- name: async-via-events
+  severity: error
+  check: 'Asynchronous side effects use events and listeners (0012).'
+- name: orchestration-is-not-ownership
+  severity: error
+  check: 'Orchestrating another domain''s capability does not transfer ownership.'
+- name: projections-rebuildable
+  severity: error
+  check: 'Projections and read models are rebuildable and never update canonical state (0017).'
+manual_review:
+- 'Does any touched file write a stream its domain does not own?'

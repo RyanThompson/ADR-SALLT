@@ -1,0 +1,24 @@
+id: ADR-0015
+title: Copy and Translation
+extends: _defaults.yml
+applies_to:
+- 'lang/**'
+- 'app/Domains/**/Panel/**'
+- 'app/Domains/**/Api/**'
+- 'resources/views/**'
+rules:
+- name: no-hardcoded-copy
+  severity: error
+  check: 'No hard-coded user-facing strings: labels, headings, placeholders, hints, buttons, empty states, notifications, validation.'
+- name: domain-namespaced-keys
+  severity: error
+  check: 'Keys live in `lang/{locale}/domains/{domain}.php`, nested by screen → component → field/action.'
+- name: nested-arrays
+  severity: error
+  check: 'PHP lang files use nested arrays, never flat dotted keys.'
+- name: locale-parity
+  severity: error
+  check: 'Locales are `en`, `es`, `pt_BR`. Every locale keeps the default locale''s key structure.'
+- name: no-generic-domain-keys
+  severity: warning
+  check: 'A word with domain meaning never uses a generic `common.*` key.'

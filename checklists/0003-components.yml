@@ -1,0 +1,26 @@
+id: ADR-0003
+title: Components
+extends: _defaults.yml
+applies_to:
+- 'app/Domains/**/Panel/Components/**'
+rules:
+- name: container-suffix
+  severity: error
+  check: 'Names end in their container: `Card`, `Section`, `Fieldset`, `Container`, `Widget`, `StatsGrid`.'
+- name: for-not-make-livewire
+  severity: error
+  check: 'Context-aware components are built with `for($livewire, ...)`. `make()` is for context-free construction only.'
+- name: owner-registers
+  severity: error
+  check: 'A component registers its own forms, tables and actions in `setUp()`; callers never register a child''s internals.'
+- name: register-before-resolve
+  severity: error
+  check: 'Register before resolve (applies to every registry-backed builder).'
+- name: no-inline-rebuilds
+  severity: error
+  check: 'Never rebuild an existing component, form or table inline.'
+- name: no-passthrough-wrappers
+  severity: error
+  check: 'A wrapper must add behavior. No `Card` solely to title a `Table`.'
+manual_review:
+- 'Could the caller use this component without knowing what is inside it?'

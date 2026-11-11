@@ -1,0 +1,31 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Carbon\CarbonImmutable;
+use App\Domains\Auth\Models\Identity;
+
+/** ADR 0011 — typed, immutable, context included. */
+final readonly class {{ class }}
+{
+    public function __construct(
+        public int|string ${{ entityVar }}Id,
+        // TODO: typed business fields. Nullable only if optional by design.
+        public Identity $actor,
+        public int|string $organizationId,
+        public CarbonImmutable $at,
+    ) {}
+
+    /** Called at an edge. Pass context in; never read it here. */
+    public static function fromForm(array $validated, int|string ${{ entityVar }}Id, Identity $actor, int|string $organizationId, CarbonImmutable $at): self
+    {
+        return new self(
+            {{ entityVar }}Id: ${{ entityVar }}Id,
+            actor: $actor,
+            organizationId: $organizationId,
+            at: $at,
+        );
+    }
+}

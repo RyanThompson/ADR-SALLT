@@ -1,0 +1,25 @@
+id: ADR-0007
+title: Addons
+extends: _defaults.yml
+applies_to:
+- 'addons/**'
+- 'composer.json'
+rules:
+- name: approved-tiers
+  severity: error
+  check: 'Addons live in `addons/available/{addon}`, `addons/private/{client}/{addon}` or `addons/internal/{addon}`. Create a tier when its first addon exists.'
+- name: package-with-provider
+  severity: error
+  check: 'Each addon has its own `composer.json`, PSR-4 `src/`, and one service provider as its entry point.'
+- name: path-repositories
+  severity: error
+  check: 'The root `composer.json` declares a path repository per tier in use.'
+- name: visibility-by-tier
+  severity: error
+  check: 'Visibility follows tier: `internal` is never listed; `private` is assignable only to its client.'
+- name: explicit-capabilities
+  severity: error
+  check: 'Capabilities register through the provider. No runtime scanning.'
+- name: no-core-ownership
+  severity: error
+  check: 'Addons do not own core streams or REST for core streams.'

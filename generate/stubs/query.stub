@@ -1,0 +1,18 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Streams\Core\Criteria\Criteria;
+
+/** ADR 0010 — a named read. Emits nothing. */
+final class {{ class }}
+{
+    public function __construct(private int|string $organizationId) {}
+
+    public function __invoke(): Criteria
+    {
+        return entries('{{ stream }}')->where('organization_id', '=', $this->organizationId);
+    }
+}

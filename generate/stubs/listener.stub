@@ -1,0 +1,17 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use {{ eventFqcn }};
+
+/** ADR 0012 — react through the owner's public action. Context comes from the event. */
+final class {{ class }}
+{
+    public function handle({{ event }} $event): void
+    {
+        // dispatch(new TODOAction(TODOActionData::fromEvent($event)));
+    }
+}
+// Register in EventServiceProvider: {{ event }}::class => [{{ class }}::class]

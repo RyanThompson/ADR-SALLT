@@ -1,0 +1,24 @@
+id: ADR-0002
+title: Package Fidelity
+extends: _defaults.yml
+applies_to:
+- 'resources/views/vendor/**'
+- 'vendor/streams/**'
+rules:
+- name: no-view-overrides
+  severity: error
+  check: 'No new files under `resources/views/vendor/**`.'
+- name: no-publish-to-patch
+  severity: error
+  check: 'No `vendor:publish` of package views to patch markup or CSS.'
+- name: fix-upstream
+  severity: error
+  check: 'A package bug is fixed in the package checkout, committed upstream, then the app bumps its reference.'
+- name: customize-via-api
+  severity: error
+  check: 'Customize through builders, options, theme and app components that call the package.'
+- name: delete-on-touch
+  severity: error
+  check: 'Grandfathered overrides are deleted when touched, with the change landed upstream.'
+manual_review:
+- 'Would another Streams app want this fix?'

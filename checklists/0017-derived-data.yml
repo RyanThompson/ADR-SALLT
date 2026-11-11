@@ -1,0 +1,28 @@
+id: ADR-0017
+title: Derived Data
+extends: _defaults.yml
+applies_to:
+- 'app/Domains/Insights/**'
+- 'app/Domains/Dashboards/**'
+rules:
+- name: three-layers
+  severity: error
+  check: 'Three layers: facts (owning domains) → calculators (deduce for a closed period) → materialized values (serve).'
+- name: no-redundant-facts
+  severity: error
+  check: 'No new fact stream when an existing timestamp or row already answers the question.'
+- name: serve-materialized
+  severity: error
+  check: 'Dashboards serve catalogued metrics from materialized values, never live scans.'
+- name: closed-days-only
+  severity: error
+  check: 'Calculators write closed periods only, day grain first.'
+- name: one-calculator-per-key
+  severity: error
+  check: 'One registered calculator per metric key.'
+- name: document-snapshot-limits
+  severity: error
+  check: 'If an as-of value cannot be rebuilt, the owner records history or the limit is documented.'
+- name: rebuildable
+  severity: error
+  check: 'Materialized values can be deleted and recomputed and never write back.'

@@ -1,0 +1,24 @@
+id: ADR-0022
+title: Styling
+extends: _defaults.yml
+applies_to:
+- 'resources/css/**'
+- 'resources/views/**'
+- 'tailwind.config.*'
+- 'app/Domains/**/Panel/**'
+rules:
+- name: variants-first
+  severity: error
+  check: 'Use Streams UI component variants and theme tokens (`->color(''primary'')`) before utility classes.'
+- name: app-markup-only
+  severity: error
+  check: 'Utilities style app-owned markup only; package markup is changed upstream (0002).'
+- name: tokens-not-arbitrary
+  severity: error
+  check: 'No arbitrary values (`text-[13px]`, `#187bd8`) where a scale token exists. Missing tokens are added to the theme.'
+- name: custom-css-justified
+  severity: error
+  check: 'Custom CSS states its reason in a comment. No `@apply` to recreate a component — build the component.'
+- name: use-variants
+  severity: warning
+  check: 'Responsive and dark variants use Tailwind variants, not hand-written media queries.'

@@ -1,0 +1,36 @@
+id: ADR-0010
+title: Actions
+extends: _defaults.yml
+applies_to:
+- 'app/Domains/**/Actions/**'
+- 'app/Domains/**/Panel/**'
+- 'app/Domains/**/Api/**'
+- 'app/Domains/**/Listeners/**'
+- 'app/Domains/**/Jobs/**'
+rules:
+- name: single-dto-constructor
+  severity: error
+  check: 'An Action is a command. Its constructor takes exactly one `*Data` DTO. No arrays, scalars or `Request`.'
+- name: dispatch-not-invoke
+  severity: error
+  check: 'It executes in `__invoke()` and is called through `dispatch_sync()` or `dispatch()` — never `->__invoke()` or `(new X)()`.'
+- name: action-authorizes
+  severity: error
+  check: 'It enforces authorization through the actor in its DTO (0014).'
+- name: emits-after-commit
+  severity: error
+  check: 'It emits one or more past-tense events after the write commits (0012).'
+- name: no-runtime-globals
+  severity: error
+  check: 'It never reads `auth()`, `request()`, `session()`, `now()` or `Carbon::now()` (P3).'
+- name: specific-imperative-name
+  severity: error
+  check: 'Its name is a specific imperative Verb+Noun. Split when fields save independently or differ in authorization, events or retry.'
+- name: reads-are-queries
+  severity: error
+  check: 'A read is not an Action. It is a named query in `Queries/` (`Find*`, `Resolve*`, `Estimate*`) and emits nothing.'
+- name: transactions-and-idempotency
+  severity: warning
+  check: 'Multi-write actions use a transaction. Retryable actions document idempotency.'
+manual_review:
+- 'Could this action be replayed from a queue with only its DTO?'

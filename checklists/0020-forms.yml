@@ -1,0 +1,24 @@
+id: ADR-0020
+title: Forms
+extends: _defaults.yml
+applies_to:
+- 'app/Domains/**/Panel/Forms/**'
+rules:
+- name: dedicated-form-class
+  severity: error
+  check: 'Forms are dedicated `Panel/Forms/*Form` classes.'
+- name: submit-via-handleform
+  severity: error
+  check: 'Submit is wired through `handleForm(''{form-name}'')`.'
+- name: read-validated-state
+  severity: error
+  check: '`handle()` reads `getState()` — flat, validated, scoped to the form''s own bucket.'
+- name: keep-derived-names
+  severity: error
+  check: 'The derived name and `statePath` are never overridden — not on the form, not on fields, not via `getDefaultName()`. Pass a different name at `register`/`resolve`/`for` if one is needed.'
+- name: form-to-dto-to-action
+  severity: error
+  check: 'The submit path is: `getState()` → DTO factory → `dispatch_sync(Action)`. The form is an edge; it supplies actor, tenant and time to the DTO.'
+- name: field-level-validation
+  severity: warning
+  check: 'Field rules express validation; manual validation only for cross-field rules.'

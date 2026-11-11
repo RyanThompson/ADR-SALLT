@@ -1,0 +1,27 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use App\Domains\Auth\Models\Identity;
+
+/** ADR 0014 — decide from data. Enforced by actions; mirrored by edges. */
+final class {{ entity }}Policy
+{
+    public function view(Identity $actor, object ${{ entityVar }}): bool
+    {
+        return false; // TODO
+    }
+
+    public function update(Identity $actor, object ${{ entityVar }}): bool
+    {
+        return false; // TODO
+    }
+
+    public function delete(Identity $actor, object ${{ entityVar }}): bool
+    {
+        return false; // TODO
+    }
+}
+// Register in AuthServiceProvider::$policies

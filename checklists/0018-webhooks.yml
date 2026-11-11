@@ -1,0 +1,27 @@
+id: ADR-0018
+title: Webhooks
+extends: _defaults.yml
+applies_to:
+- 'app/Domains/Webhooks/**'
+rules:
+- name: standard-envelope
+  severity: error
+  check: 'Body is `{"type","timestamp","data"}`. Event time is ISO 8601 UTC. Tenant and facts live under `data`.'
+- name: standard-headers
+  severity: error
+  check: 'Every attempt sends `webhook-id`, `webhook-timestamp`, `webhook-signature` (`v1,<base64>`) and `Content-Type: application/json`.'
+- name: standard-signing
+  severity: error
+  check: 'Sign `{msg_id}.{timestamp}.{raw_body}` with HMAC-SHA256 using the base64-decoded `whsec_` secret.'
+- name: whsec-secrets
+  severity: error
+  check: 'New secrets are `whsec_` + base64 of at least 24 random bytes.'
+- name: stable-message-id
+  severity: error
+  check: '`webhook-id` is stable across retries; only timestamp and signature change.'
+- name: normalize-before-encode
+  severity: error
+  check: 'Stored payloads are normalized before encoding; an empty `{}` from a failed cast is a bug.'
+- name: event-driven-single-signer
+  severity: error
+  check: 'Fan-out starts from domain events; signing lives in one support class.'

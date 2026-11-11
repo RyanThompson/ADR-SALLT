@@ -1,0 +1,22 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Streams\Ui\Builders\Containers\Card;
+
+/** ADR 0003 — owns its internals; registers its own children. */
+final class {{ class }} extends Card
+{
+    protected function setUp(): void
+    {
+        // TODO: SomeForm::register($this->getLivewire());
+
+        $this->heading(__('domains/{{ domainKey }}.{{ name }}.heading'))
+            ->components(fn () => [
+                // TODO: SomeForm::resolve()->fill([...]),
+            ]);
+    }
+}
+// Compose with {{ class }}::for($this)

@@ -1,0 +1,48 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Streams\Ui\Builders\Forms\Form;
+use Streams\Ui\Support\Facades\UI;
+use Streams\Ui\Builders\Actions\Action;
+use Streams\Ui\Builders\Inputs\TextInput;
+use App\Domains\{{ domain }}\Actions\{{ action }};
+use App\Domains\{{ domain }}\Actions\{{ data }};
+
+/** ADR 0020 — fields and validation in; DTO out. Never override the derived name or statePath. */
+final class {{ class }} extends Form
+{
+    protected function setUp(): void
+    {
+        $this->components([
+            TextInput::make('TODO')
+                ->label(__('domains/{{ domainKey }}.{{ name }}.fields.TODO.label'))
+                ->required(),
+        ])->mergeHtmlAttributes([
+            'wire:submit.prevent' => "handleForm('{$this->getName()}')",
+        ])->actions([
+            Action::make('submit')
+                ->label(__('domains/{{ domainKey }}.{{ name }}.actions.submit'))
+                ->tag('button')
+                ->color('primary')
+                ->mergeHtmlAttributes(['type' => 'submit']),
+        ]);
+    }
+
+    public function handle(array $payload = []): mixed
+    {
+        $livewire = $this->getLivewire();
+
+        dispatch_sync(new {{ action }}({{ data }}::fromForm(
+            validated: $this->getState(),
+            {{ entityVar }}Id: $livewire->record->id,
+            actor: auth()->user(),
+            organizationId: UI::getTenant()->id,
+            at: now()->toImmutable(),
+        )));
+
+        return null;
+    }
+}

@@ -1,0 +1,25 @@
+id: ADR-0016
+title: Code Style
+extends: _defaults.yml
+applies_to:
+- 'app/**/*.php'
+- 'addons/**/*.php'
+rules:
+- name: pint-laravel-preset
+  severity: error
+  check: 'Changed PHP passes Pint with the project config. The baseline is Pint''s `laravel` preset.'
+- name: fallbacks-only-for-optional
+  severity: error
+  check: 'Every `??`, `?:`, `?->`, `optional()`, `data_get`/`Arr::get` default, or empty-string/array/zero fallback maps to a value optional by design.'
+- name: required-fails-loud
+  severity: error
+  check: 'Required state is read directly or guarded by a named domain exception.'
+- name: explicit-optionality
+  severity: error
+  check: 'Optionality is explicit: nullable types, value objects or documented DTO fields.'
+- name: strict-types
+  severity: warning
+  check: 'New files declare `strict_types=1`.'
+- name: isolate-style-diffs
+  severity: warning
+  check: 'Formatting-only changes are separate commits from behavior changes.'

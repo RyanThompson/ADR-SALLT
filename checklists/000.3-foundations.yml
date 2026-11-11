@@ -1,0 +1,38 @@
+id: ADR-000.3
+title: Foundations
+extends: _defaults.yml
+applies_to:
+- 'app/**'
+- 'streams/**'
+- 'resources/**'
+rules:
+- name: p1-one-owner
+  severity: error
+  check: 'Every value this change writes has one named owning domain; writes originate inside the owner.'
+- name: p2-names-carry-intent
+  severity: error
+  check: 'Commands are Verb+Noun; facts are Subject+PastVerb; types carry role suffixes; domains are business nouns.'
+- name: p3-context-explicit
+  severity: error
+  check: 'Actor, tenant, time and source travel in the DTO; no auth()/request()/session()/now() below the edge.'
+- name: p4-fail-loud
+  severity: error
+  check: 'Every fallback maps to a field declared optional; required state fails loud.'
+- name: p5-facts-are-canon
+  severity: error
+  check: 'New storage is fact or derivation; derivations never write canonical state.'
+- name: p6-register-dont-discover
+  severity: error
+  check: 'Everything that runs is registered at a known boot point; one grep finds it.'
+- name: p7-compose-at-top
+  severity: error
+  check: 'Composers stay thin; writes follow validated input → DTO → action → event.'
+- name: p8-fix-the-source
+  severity: error
+  check: 'Package bugs and capabilities are fixed/used upstream; no local fork of what a standard or package already defines.'
+- name: p9-nothing-without-a-job
+  severity: error
+  check: 'Every new abstraction, wrapper, icon or word does work nothing else already does.'
+manual_review:
+- 'Does every change pass the P1–P9 tests in 000.3?'
+- 'Stack reach order and platform rules checked via ADR 0001 checklist, not restated here?'

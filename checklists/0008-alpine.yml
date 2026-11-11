@@ -1,0 +1,34 @@
+id: ADR-0008
+title: Alpine.js
+extends: _defaults.yml
+applies_to:
+- 'resources/js/**'
+- 'resources/views/**'
+- 'app/Domains/**/Panel/**'
+rules:
+- name: native-first
+  severity: error
+  check: 'Use native HTML before Alpine: `<details>`, `<dialog>`, `popover`, form constraint attributes, anchors.'
+- name: ephemeral-state-only
+  severity: error
+  check: 'Alpine owns ephemeral UI state only: open/closed, local tabs, dirty flags, transitions, focus, keyboard, clipboard.'
+- name: no-server-truth
+  severity: error
+  check: 'Alpine never fetches domain data, holds server truth, enforces business rules or authorizes.'
+- name: no-shared-state
+  severity: error
+  check: 'State lives in Alpine or in Livewire `$data`, never both. No `@entangle` / `$wire.entangle`; if both sides need it, the server owns it.'
+- name: register-components
+  severity: error
+  check: 'Inline `x-data` holds one line of state. Anything larger or reused is `Alpine.data(''{domain}{Name}'', …)`, registered in the one JS entry file.'
+- name: server-via-livewire
+  severity: error
+  check: 'Server calls go through Livewire (`wire:*`, `$wire`). No `fetch` to app routes from Alpine.'
+- name: no-other-frameworks
+  severity: error
+  check: 'No other client framework (jQuery, Vue, React). A third-party library is wrapped once as an Alpine component, fed by server-rendered data.'
+- name: attributes-via-builders
+  severity: error
+  check: 'On Streams components, Alpine attributes are added through `mergeHtmlAttributes()`, never by forking markup.'
+manual_review:
+- 'Would this still work if the server were slow? Should it?'

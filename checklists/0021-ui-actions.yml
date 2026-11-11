@@ -1,0 +1,21 @@
+id: ADR-0021
+title: UI Actions and Modals
+extends: _defaults.yml
+applies_to:
+- 'app/Domains/**/Panel/Actions/**'
+rules:
+- name: modal-suffix
+  severity: error
+  check: 'Classes that open a modal end in `Modal`; others are named for their intent.'
+- name: register-then-resolve
+  severity: error
+  check: 'Mountable actions are registered by the owner (`register($livewire)`) before `resolve()`. Never `make()->livewire()`.'
+- name: delegate-mutations
+  severity: error
+  check: 'Mutations dispatch a domain action with a DTO. No inline persistence.'
+- name: keep-derived-name
+  severity: error
+  check: 'Never override `getDefaultName()`; pass an explicit name at the call site when one must differ.'
+- name: linkcolumn-and-actionmenu
+  severity: warning
+  check: 'Navigating table cells use `LinkColumn`; grouped actions use `ActionMenu`.'

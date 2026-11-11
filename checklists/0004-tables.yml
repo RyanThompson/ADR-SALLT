@@ -1,0 +1,21 @@
+id: ADR-0004
+title: Tables
+extends: _defaults.yml
+applies_to:
+- 'app/Domains/**/Panel/Tables/**'
+rules:
+- name: dedicated-table-class
+  severity: error
+  check: 'Tables are dedicated `Panel/Tables/*Table` classes.'
+- name: table-owns-wiring
+  severity: error
+  check: 'The table configures its own query, columns, filters, row/bulk/header actions and empty state.'
+- name: tenant-scoped-explicit-where
+  severity: error
+  check: 'Queries scope by `UI::getTenant()` with explicit `where($field, ''='', $value)`.'
+- name: title-on-table
+  severity: error
+  check: 'Section titles go on the table (`heading()`, `description()`, `headerActions()`), never on a wrapping `Card`.'
+- name: one-use-case
+  severity: warning
+  check: 'One table per use case. Extract shared columns only when reuse is real.'

@@ -1,0 +1,27 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Streams\Ui\Builders\Actions\MountableAction;
+use App\Domains\{{ domain }}\Actions\{{ action }};
+use App\Domains\{{ domain }}\Actions\{{ data }};
+
+/** ADR 0021 — owns the interaction; the domain action owns the change. */
+final class {{ class }}Modal extends MountableAction
+{
+    protected function setUp(): void
+    {
+        $this->label(__('domains/{{ domainKey }}.actions.{{ name }}.label'))
+            ->modalHeading(__('domains/{{ domainKey }}.actions.{{ name }}.heading'))
+            ->authorize('TODO-ability', $this->livewire->record)
+            ->action(fn () => dispatch_sync(new {{ action }}(new {{ data }}(
+                {{ entityVar }}Id: $this->livewire->record->id,
+                actor: auth()->user(),
+                organizationId: \Streams\Ui\Support\Facades\UI::getTenant()->id,
+                at: now()->toImmutable(),
+            ))));
+    }
+}
+// Owner registers: {{ class }}Modal::register($livewire); then resolves: {{ class }}Modal::resolve()

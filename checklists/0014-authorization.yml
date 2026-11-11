@@ -1,0 +1,28 @@
+id: ADR-0014
+title: Authorization
+extends: _defaults.yml
+applies_to:
+- 'app/Domains/**/Policies/**'
+- 'app/Domains/**/Actions/**'
+- 'app/Providers/AuthServiceProvider.php'
+rules:
+- name: policy-per-entity
+  severity: error
+  check: 'Each owned entity has one `{Entity}Policy` in its domain''s `Policies/`.'
+- name: policies-registered
+  severity: error
+  check: 'Policies are registered explicitly in `AuthServiceProvider::$policies`.'
+- name: actions-enforce
+  severity: error
+  check: 'Actions enforce with `Gate::forUser($this->data->actor)->authorize(...)`. The action is the authority.'
+- name: edges-mirror-only
+  severity: error
+  check: 'Edges mirror the policy for presentation (`->authorize()`, `->disabled()`, `->visible()`). An edge check is never the only check.'
+- name: no-placeholder-policies
+  severity: error
+  check: 'Policies decide from data. No `return true` placeholders in shipped code.'
+- name: tenancy-separate
+  severity: warning
+  check: 'Tenant membership is resolved by the surface''s tenant resolver, not by policies.'
+manual_review:
+- 'If the UI check were deleted, would the action still refuse?'
