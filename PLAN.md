@@ -1,15 +1,15 @@
 # Plan — Salty stack ready to use
 
 **Status:** Approved and executing.  
-**Intent:** Pin version-controlled dependencies, then work on them **from the to-dos project** (`streams-todo`).
+**Intent:** Pin version-controlled dependencies, then work on them **from the SALT create-project** ([RyanThompson/salt](https://github.com/RyanThompson/salt) → local `Sites/salt`).
 
 | Phase | Outcome |
 |---|---|
 | 1 | [`RECONCILIATION.md`](RECONCILIATION.md) + [`PUNCHLIST.md`](PUNCHLIST.md) landed |
 | 2 | [`adr/0001`](adr/0001-salty-stack.md) sole stack home; [`000.3`](000.3-foundations.md) = P1–P9 only |
-| 3 | `streams-todo` dogfood: filled `000.0`–`000.2`, ADR-SALLT linked, `streams/sdk` path-pinned |
+| 3 | **SALT** starter: `composer create-project ryanthompson/salt` → Laravel shell + SDK → `salt:onboard` TUI → generators |
 
-After scaffold: implement generators in punch-list order against real failures.
+After scaffold: implement onboard TUI + generators in punch-list order against real failures in `salt`.
 
 ---
 
