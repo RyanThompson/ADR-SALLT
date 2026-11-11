@@ -4,8 +4,10 @@ Build against failures in `streams-todo`, not speculation. Prefer `streams:make`
 
 | Priority | Gap | First failure signal | ADR |
 |---|---|---|---|
+| P0 | Honor `streams.onboard.json` from `streams:onboard` (Composer create-project Path 1) | Recipe written; no generator consumes it | 0001 |
 | P0 | Domain recipe (dir, model, repositories, lang, `streams.json` stream node) | Cannot scaffold `Todos` without inventing structure | 0009 · 0001 |
 | P0 | Emit **schema-valid** `streams.json` nodes + `streams:validate` in the loop | Invalid tree / failed validate after hand JSON | 0001 |
+| P0′ | When generators work: regenerate + rebase **RyanThompson/todos** onto golden output | Hand-maintained todos drifts from SDK | — |
 | P1 | Domain action cluster (action + DTO + event + test) | Completing/updating a todo has nowhere canon to put behavior | 0010–0012 |
 | P1 | Form/modal recipes wired to domain action | UI save path without DTO→action | 0020–0021 |
 | P2 | Component kind + `Panel/Components` path | Cards/sections hand-rolled | 0003 |

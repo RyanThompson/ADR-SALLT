@@ -7,9 +7,9 @@
 |---|---|
 | 1 | [`RECONCILIATION.md`](RECONCILIATION.md) + [`PUNCHLIST.md`](PUNCHLIST.md) landed |
 | 2 | [`adr/0001`](adr/0001-salty-stack.md) sole stack home; [`000.3`](000.3-foundations.md) = P1–P9 only |
-| 3 | **SALLT** starter: `composer create-project ryanthompson/sallt` → Laravel shell + SDK → `sallt:onboard` TUI → generators |
+| 3 | **🧂 SALLT** starter: create-project installs **streams/core + streams/sdk** only → scripts → **`streams:onboard`** (SDK TUI) writes `streams.onboard.json` → generators honor options (no templates yet) |
 
-After scaffold: implement onboard TUI + generators in punch-list order against real failures in `SALLT`.
+After scaffold: implement KindRegistry recipes against recipe options; when ready, regenerate and rebase **RyanThompson/todos** onto that output. Path 2 (JS create) later, same discovery keys (including Streams API discover).
 
 ---
 
